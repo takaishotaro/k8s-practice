@@ -3,7 +3,7 @@ resource "aws_eks_node_group" "main_node_group" {
   node_group_name = "${var.project_name}-${var.environment}-node-group"
   node_role_arn   = aws_iam_role.node_group_iam_role.arn
   subnet_ids      = module.vpc.private_subnets
-  instance_types = ["t3.large"]
+  instance_types  = ["t3.large"]
 
   scaling_config {
     desired_size = 2
