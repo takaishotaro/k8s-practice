@@ -1,9 +1,10 @@
 resource "aws_eks_cluster" "main_cluster" {
   name     = "${var.project_name}-${var.environment}-cluster"
   role_arn = aws_iam_role.main_cluster_iam_role.arn
+  version  = var.eks_version
 
   vpc_config {
-    subnet_ids = module.vpc.private_subnets
+    subnet_ids = var.private_subnets
   }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
@@ -53,4 +54,7 @@ resource "aws_iam_role_policy_attachment" "AmazonEKSVPCResourceController" {
   role       = aws_iam_role.main_cluster_iam_role.name
 }
 
-
+resource "aws_iam_role_policy_attachment" "AmazonEKSServicePolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
+  role       = aws_iam_role.main_cluster_iam_role.name
+}
