@@ -1,0 +1,9 @@
+replicaCount: 1
+image:
+  repository: alexwhen/docker-2048
+  tag: "latest"
+service:
+  type: ClusterIP
+  port: 80
+labels:
+  app: game-2048

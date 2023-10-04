@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: game-2048
+  name: {{ .Values.labels.app }}
   labels:
-    app: game-2048
+    app: {{ .Values.labels.app }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: game-2048
+      app: {{ .Values.labels.app }}
   template:
     metadata:
       labels:
-        app: game-2048
+        app: {{ .Values.labels.app }}
     spec:
       containers:
-      - name: game-2048
-        image: alexwhen/docker-2048
+      - name: {{ .Values.labels.app }}
+        image: "{{ .Values.image.repository }}:{{.Values.image.tag }}"
         ports:
-        - containerPort: 80
+        - containerPort: {{ .Values.service.port }}
